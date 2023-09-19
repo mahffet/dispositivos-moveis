@@ -1,46 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
     <style>
-        .lann{
-            color: brown;
+        h2 {
+            color: rgb(160, 126, 191);
         }
         
     </style>
-    <h1 class="lann">Lanchonete</h1>
-    <input type="text"  id="cep" placeholder="cep"> <br> <br>
-    <input type="text"  id="logradouro" placeholder="logradouro"><br> <br>
-    <input type="text"  id="numero" placeholder="número"><br> <br>
-    <input type="text"  id="bairro" placeholder="bairro"><br> <br>
-    <input type="text"  id="complemento" placeholder="complemento"><br> <br>
-    <button type="button" onclick="gravar()">Gravar</button>
-    <button type="button" onclick="limpar()">Limpar</button>
-   
+</head>
 
+<body style="background-image: url(https://www.pixel4k.com/wp-content/uploads/2018/09/starry-sky-night-stars-sky-4k_1536017006.jpg)">
+    <form >
+    <h2>cep.com</h2>
+    <p><input type="text" placeholder="nome"></p>
+    <p><input onblur="buscaCep()" placeholder="CEP" ></p>
+    <p><input type="text" placeholder="logradouro"></p>
+    <p ><input type="text" placeholder="bairro" ></p>
+    <p><input type="text" placeholder="uf" ></p>
+    <p><input type="text" placeholder="localidade" ></p>
+    <p><input type="text" placeholder="complemento"></p>
+    <p><input type="text" placeholder="Número" id="numero"></p>
+
+
+    <p><button style="background-image: url(https://wallpapercave.com/wp/wp9436786.jpg); color: aliceblue; "type="Button">Salvar</button>
+            <button style="background-image: url(https://wallpapercave.com/wp/wp9436786.jpg); color: aliceblue;" type="Reset">Limpar</button></p>
+        </form>
 </body>
 <script>
-    
-    /*EXPLICAÇÃO*/
-    // <button class="btn" type="button" onclick="trocar()">Trocar</button>
-    // http://www.viacep.com.br/ws/*numero do cep aqui*/json
-    //fetch("viacep.com.br/ws/79118051/json")
-    // then((Response)=> {
-    // response.json()
-    //}).then((data)=>{
-    // document.querySelector("[placeholder= logradouro]").value =data.logradouro;
-    //})
-    // 
-    //
-    //
-    //
-    //
-    //
-    //
-</script>
+    let buscaCep = () => {
+        fetch("https://viacep.com.br/ws/79118051/json/").
+            then((r) => r.json()).then((m) => 
+            { document.querySelector("[placeholder=logradouro]").value = m.nome; });
+
+
+        fetch("https://viacep.com.br/ws/79118051/json/").
+            then((r) => r.json()).then((e) => 
+            { document.querySelector("[placeholder=logradouro]").value = e.logradouro; });
+
+
+        fetch("https://viacep.com.br/ws/79118051/json/").
+            then((r) => r.json()).then((b) => 
+            { document.querySelector("[placeholder=bairro]").value = b.bairro; });
+
+
+        fetch("https://viacep.com.br/ws/79118051/json/").
+            then((r) => r.json()).then((c) => 
+            { document.querySelector("[placeholder=complemento]").value = c.complemento; });
+
+            
+        fetch("https://viacep.com.br/ws/79118051/json/").
+            then((r) => r.json()).then((u) => 
+            { document.querySelector("[placeholder=uf]").value = u.uf; });
+
+            fetch("https://viacep.com.br/ws/79118051/json/").
+            then((r) => r.json()).then((l) => 
+            { document.querySelector("[placeholder=localidade]").value = l.localidade; });
+
+
+    }; </script>
+
 </html>
