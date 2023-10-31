@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+   <style>
+
+    #fUp {
+        display: none;
+    }
+
+    input {
+        font-size: 1.3em;
+    }
+
+    #img {
+        max-height: 9em;
+    }
+
+   </style>
+
+   <script>
+
+    let fUp;
+
+    let init= () =>{
+
+        fUp = document.querySelector('#fUp');
+
+        img = document.querySelector('#img');
+
+        fUp.addEventListener("change", ()=>{
+
+         img.setAttribute("src", window.URL.createObjectURL(fUp.files[0]));
+
+        });
+    }
+
+    let foto = () =>{
+        fUp.click()
+    }
+
+    let limpar = () =>{
+        img.src="camera.png"
+    }
+
+   </script>
+
+</head>
+
+<body onload="init()" style="font-size: 1.3em;">
+    
+    <input type="file" name="" id="fUp" accept="image/*" capture="environment">
+
+    <img src="camera.png" id="img"><br>
+
+    <input type="button" value="Tirar Foto" id="btFoto" onclick="foto()">
+
+    <input type="button" value="Limpar" id="btClear" onclick="limpar()">
+</body>
+
+</html>
