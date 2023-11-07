@@ -4,6 +4,21 @@
 <head>
 
    <style>
+    
+    #btFoto{
+        background-color: tomato;
+        color: wheat;
+    }
+
+    #btUp{
+        background-color: steelblue;
+        color: wheat;
+    }
+
+    #btClear{
+        background-color: orange;
+        color: wheat;
+    }
 
     #fUp {
         display: none;
@@ -20,9 +35,21 @@
    </style>
 
    <script>
-    
 
-    let fUp;
+        let upload = ()=>{
+        const formData = new FormData();
+        formData.append("file", fUp.files[0]);
+        fetch("/app/upload", {
+            method: 'POST',
+            body: formData
+        }).
+        then((response)=> response.json()).
+        then((nm) =>{
+            nome.innerHTML=nm
+        });\
+    }
+
+    let fUp, img;
 
     let init= () =>{
 
@@ -44,18 +71,23 @@
     let limpar = () =>{
         img.src="camera.png"
     }
-
+    
    </script>
 
 </head>
 
 <body onload="init()" style="font-size: 1.3em;">
+    <h2>Capturando uma foto pela camera</h2>
     
     <input type="file" name="" id="fUp" accept="image/*" capture="environment">
 
     <img src="camera.png" id="img"><br>
 
+    <div>Nome: <span id="nome">...</span></div>
+
     <input type="button" value="Tirar Foto" id="btFoto" onclick="foto()">
+
+    <input type="button" value="Upload" id="btUp" onclick="upload()">
 
     <input type="button" value="Limpar" id="btClear" onclick="limpar()">
 </body>
