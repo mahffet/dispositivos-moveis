@@ -46,7 +46,7 @@
         then((response)=> response.json()).
         then((nm) =>{
             nome.innerHTML=nm
-        });\
+        });
     }
 
     let fUp, img;
@@ -83,7 +83,7 @@
 
     <img src="camera.png" id="img"><br>
 
-    <div>Nome: <span id="nome">...</span></div>
+    <div>Nome: <span id="nomeFoto">...</span></div>
 
     <input type="button" value="Tirar Foto" id="btFoto" onclick="foto()">
 
