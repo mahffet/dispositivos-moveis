@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta>
+    <title>Document</title>
+
+
+    <style>
+        #apupuDeFotinho {
+            display: none;
+        }
+
+        input {
+            font-size: 1.3em;
+        }
+
+        #img {
+            max-height: 15em
+        }
+
+        #btFt {
+            background-color: red;
+            font-family: cursive
+        }
+
+        #btLimpar {
+            background-color: crimson;
+            font-family: cursive;
+        }
+
+
+        #btApupu {
+            background-color: darkred;
+            font-family: cursive
+        }
+    </style>
+
+
+    <script>
+        let apupuDeFotinho, img;
+
+        let init = () => {
+            apupuDeFotinho = document.querySelector('#apupuDeFotinho');
+            img = document.querySelector('#img');
+            apupuDeFotinho.addEventListener("change", () => {
+                img.setAttribute("src", window.URL.createObjectURL(apupuDeFotinho.files[0]));
+            });
+        }
+
+        let foto = () => {
+            apupuDeFotinho.click()
+        }
+
+        let limpar = () => {
+            img.src = "camera.png";
+
+        }
+
+        let upload = () => {
+            const formData = new FormData();
+            formData.append("file", apupuDeFotinho.files[0]);
+            fetch("/app/upload", {
+                method: "POST",
+                body: formData
+            }).
+                then((response) => response.json()).
+                then((nm) => {
+                    nome.innerHTML = nm;
+                })
+        }
+
+
+
+
+
+    </script>
+
+
+</head>
+
+<body onload="init()" style="font-size: 1.3em;">
+    <h2>Capturando uma foto pela camera</h2>
+    <input type="file" id="apupuDeFotinho" accept="image/*" capture="enviroment" />
+    <img id="img" src="camera.png" />
+    <div>Nome:<span id="nome">... </span></div>
+
+    <input id="btFt" type="button" value="Tirar Foto" onclick="foto()">
+    <input id="btLimpar" type="button" value="Limpar" onclick="limpar()">
+    <input id="btApupu" type="button" value="Fazer Upload" onclick="upload()">
+</body>
+
+</html>
