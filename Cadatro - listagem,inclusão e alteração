@@ -1,0 +1,263 @@
+<html>
+
+<head>
+
+    <style>
+
+        table, td, th {
+
+            border: 1px solid;
+
+        }
+
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+
+        input {
+
+            margin-bottom: 0.2em;
+
+            display: block;
+
+            width: 100%;
+
+        }
+
+        .escondido{
+
+            display: none;
+
+        }
+
+
+
+    </style>
+
+    <script>
+
+        let listar = ()=>{
+
+            fetch("/pessoa").then( (response)=>response.json()).
+
+            then( (lista)=>{
+
+                let tb = document.querySelector('#tb');
+
+                tb.innerHTML='';
+
+                for(let p of lista){
+
+                    let tr =  document.createElement('tr');
+
+                    let th =  document.createElement('th');
+
+                    let td1 =  document.createElement('td');
+
+                    let td2 =  document.createElement('td');
+
+                    let bt =  document.createElement('button');
+
+                    bt.innerHTML="X";
+
+                    bt.addEventListener('click',()=>{
+
+                        //excluir(p.id);
+
+                    });
+
+                    th.addEventListener('click', ()=>{
+
+                        //carregar(p.id);
+
+                    })
+
+                    tb.appendChild(tr);
+
+                    tr.appendChild(th);
+
+                    tr.appendChild(td1);
+
+                    tr.appendChild(td2);
+
+                    td2.appendChild(bt);
+
+
+
+                    th.innerHTML = p.nome;
+
+                    td1.innerHTML = p.celular;
+
+
+
+                }
+
+            })
+
+        }
+
+
+
+        let iniciarInclusao = ()=>{
+
+            document.querySelector('#id').value=0;
+
+            document.querySelector('#limpar').click();
+
+            let f = document.querySelector('form');
+
+            f.classList.toggle('escondido');
+
+            document.querySelector('#nome').focus();
+
+
+
+        };
+
+
+
+        let capturar = ()=>{
+
+            let p = {};
+
+            if(document.querySelector('#id').value && document.querySelector('#id').value!==0) {
+
+                p.id = document.querySelector('#id').value;
+
+            }
+
+            p.nome = document.querySelector('#nome').value;
+
+            p.celular = document.querySelector('#celular').value;
+
+            p.email = document.querySelector('#email').value;
+
+            p.cep = document.querySelector('#cep').value;
+
+            p.logradouro = document.querySelector('#logradouro').value;
+
+            p.numero = document.querySelector('#numero').value;
+
+            p.bairro = document.querySelector('#bairro').value;
+
+            p.cidade = document.querySelector('#cidade').value;
+
+            p.uf = document.querySelector('#uf').value;
+
+            return p;
+
+        };
+
+        let gravar = ()=>{
+
+            let dt = capturar();
+
+            fetch("/pessoa",{
+
+                method: (dt.id)?"PUT":"POST",
+
+                headers: {'content-type':'application/json'},
+
+                body: JSON.stringify(dt),
+
+            }).then( (result)=>result.json()).then( (p)=>{
+
+                document.querySelector('#id').value = p.id;
+
+                listar();
+
+                alert("Pessoa incluida com sucesso!");
+
+
+
+                document.querySelector('#id').value=0;
+
+                document.querySelector('#limpar').click();
+
+                let f = document.querySelector('form');
+
+                f.classList.toggle('escondido');
+
+
+
+            })
+
+
+
+        };
+
+    </script>
+
+</head>
+
+<body onload="listar()">
+
+    <input type="button" value="incluir" onclick="iniciarInclusao()" />
+
+    <form class="escondido">
+
+        <input id="id" type="hidden"  />
+
+        <input id="nome" placeholder="Nome:" />
+
+        <input id="celular" placeholder="Celular:" />
+
+        <input id="email" placeholder="Email:" />
+
+        <input id="cep" placeholder="Cep:" />
+
+        <input id="logradouro" placeholder="Logradouro:" />
+
+        <input id="numero" placeholder="Número:" />
+
+        <input id="bairro" placeholder="Bairro:" />
+
+        <input id="cidade" placeholder="Cidade:" />
+
+        <input id="uf" placeholder="UF:" maxlength="2" />
+
+        <input type="button" id="salvar" value="Salvar"  onclick="gravar()"/>
+
+        <input type="reset" id="limpar" value="Limpar" />
+
+    </form>
+
+    <table>
+
+        <thead>
+
+            <th>Nome</th>
+
+            <th>Celular</th>
+
+            <th>Ferramentas</th>
+
+        </thead>
+
+        <tbody id="tb">
+
+            <tr>
+
+                <th>Daniel</th>
+
+                <td>9999-999999</td>
+
+                <td>[X]</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</body>
+
+</html>
